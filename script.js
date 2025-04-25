@@ -1,12 +1,33 @@
 const button = document.getElementById("happyButton");
 
+// Límite de conejitos en pantalla
+let bunnyCount = 0;
+const maxBunnies = 150;  // Máximo número de conejitos en pantalla
+
+// Limitar la frecuencia con la que se pueden crear conejitos
+let lastClickTime = 0;
+const clickCooldown = 500;  // 500ms de espera entre clics
+
 button.addEventListener("click", () => {
-  for (let i = 0; i < 30; i++) {
-    createBunny();
+  const currentTime = Date.now();
+
+  // Evitar múltiples clics muy rápido
+  if (currentTime - lastClickTime < clickCooldown) return;
+
+  lastClickTime = currentTime;
+
+  // Crear conejitos solo si no hemos alcanzado el límite
+  if (bunnyCount < maxBunnies) {
+    for (let i = 0; i < 30; i++) {
+      createBunny();
+    }
   }
 });
 
 function createBunny() {
+  // Asegurarse de que no se exceda el límite de conejitos en pantalla
+  if (bunnyCount >= maxBunnies) return;
+
   const bunny = document.createElement("img");
   bunny.className = "bunny";
 
@@ -14,10 +35,15 @@ function createBunny() {
   const bunnyImages = [
     "img/bunny1.png",
     "img/bunny2.png",
-    "img/bunny3.png"
+    "img/bunny3.png",
+    "img/bunny4.png",
+    "img/bunny5.png",
+    "img/bunny6.png",
+    "img/bunny7.png",
+    "img/bunny8.png"
   ];
 
-  // Elegir una al azar
+  // Elegir una imagen al azar
   const randomIndex = Math.floor(Math.random() * bunnyImages.length);
   bunny.src = bunnyImages[randomIndex];
 
@@ -27,14 +53,18 @@ function createBunny() {
   let x = Math.random() * window.innerWidth;
   let y = Math.random() * window.innerHeight;
 
-  // 👉 Aquí ajustamos la velocidad según el tamaño de la pantalla
+  // Ajuste de la velocidad según el tamaño de la pantalla
   const isMobile = window.innerWidth < 600;
   const speedFactor = isMobile ? 3 : 8;
 
-  // Velocidad aleatoria
+  // Velocidades aleatorias
   let dx = (Math.random() - 0.5) * speedFactor;
   let dy = (Math.random() - 0.5) * speedFactor;
 
+  // Incrementar el contador de conejitos
+  bunnyCount++;
+
+  // Animación
   function animate() {
     x += dx;
     y += dy;
@@ -51,15 +81,15 @@ function createBunny() {
 
   animate();
 
-   // Desaparece después de 6 segundos
-   setTimeout(() => {
+  // Desaparece después de 6 segundos
+  setTimeout(() => {
     bunny.style.transition = "opacity 1s ease-out";
     bunny.style.opacity = "0";
 
-    // Elimina el elemento del DOM después del fade
+    // Eliminar el conejito después de que termine la animación de opacidad
     setTimeout(() => {
       bunny.remove();
-    }, 1000); // Espera que termine la animación (1s)
+      bunnyCount--;  // Reducir el contador de conejitos al eliminarlo
+    }, 1000); // Esperar que termine la animación (1s)
   }, 6000);
-
 }
