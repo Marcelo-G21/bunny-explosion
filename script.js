@@ -102,5 +102,5 @@ function createBunny() {
       bunny.remove();
       bunnyCount--;  // Reducir el contador de conejitos al eliminarlo
     }, 1000); // Esperar que termine la animación (1s)
-  }, 6000);
+  }, 4000);
 }
