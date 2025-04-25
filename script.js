@@ -6,7 +6,7 @@ const maxBunnies = 150;  // Máximo número de conejitos en pantalla
 
 // Limitar la frecuencia con la que se pueden crear conejitos
 let lastClickTime = 0;
-const clickCooldown = 500;  // 500ms de espera entre clics
+const clickCooldown = 100;  // 500ms de espera entre clics
 
 button.addEventListener("click", () => {
   const currentTime = Date.now();
@@ -32,7 +32,7 @@ function createBunniesWithInterval() {
     } else {
       clearInterval(interval); // Detener el intervalo una vez que los 30 conejitos han sido creados o se ha alcanzado el máximo
     }
-  }, 80); // Intervalo de 200ms entre cada conejito
+  }, 50); // Intervalo de 200ms entre cada conejito
 }
 
 function createBunny() {
