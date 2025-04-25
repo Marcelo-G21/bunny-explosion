@@ -2,7 +2,7 @@ const button = document.getElementById("happyButton");
 
 // Límite de conejitos en pantalla
 let bunnyCount = 0;
-const maxBunnies = 85;  // Máximo número de conejitos en pantalla
+const maxBunnies = 60;  // Máximo número de conejitos en pantalla
 
 // Limitar la frecuencia con la que se pueden crear conejitos
 let lastClickTime = 0;
@@ -18,11 +18,22 @@ button.addEventListener("click", () => {
 
   // Crear conejitos solo si no hemos alcanzado el límite
   if (bunnyCount < maxBunnies) {
-    for (let i = 0; i < 30; i++) {
-      createBunny();
-    }
+    createBunniesWithInterval();
   }
 });
+
+// Función para crear conejitos con intervalos
+function createBunniesWithInterval() {
+  let createdBunnies = 0;
+  const interval = setInterval(() => {
+    if (createdBunnies < 30 && bunnyCount < maxBunnies) {
+      createBunny();
+      createdBunnies++;
+    } else {
+      clearInterval(interval); // Detener el intervalo una vez que los 30 conejitos han sido creados o se ha alcanzado el máximo
+    }
+  }, 80); // Intervalo de 200ms entre cada conejito
+}
 
 function createBunny() {
   // Asegurarse de que no se exceda el límite de conejitos en pantalla
