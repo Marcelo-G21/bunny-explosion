@@ -2,7 +2,7 @@ const button = document.getElementById("happyButton");
 
 // Límite de conejitos en pantalla
 let bunnyCount = 0;
-const maxBunnies = 150;  // Máximo número de conejitos en pantalla
+const maxBunnies = 300;  // Máximo número de conejitos en pantalla
 
 // Limitar la frecuencia con la que se pueden crear conejitos
 let lastClickTime = 0;
